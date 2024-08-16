@@ -4,13 +4,24 @@ from dict.lexicon_ru import lexicon
 from config_reader import config
 
 
-def open_file(path: str) -> str:
+def open_file(path: str, number: int) -> list:
+    if number == 1:
+        number = 0
+    else:
+        number *= 10
     path = f"{config.path}{path}.txt"
     with open(path, "r") as file:
-        d = file.read()
-    if d == "" or d.isspace():
+        d = file.readlines()
+    s = ""
+    for i, f in enumerate(d, start=number):
+        if i == number+10:
+            break
+        s += str(i+1)+") "+f
+    if s == "" or s.isspace():
         return lexicon["quote_1"]
-    return d
+    else:
+        return s
+
 
 def delete_lines(path: str, numbers: str) -> int:
     try:
