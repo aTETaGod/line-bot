@@ -4,6 +4,7 @@ from typing import Any, Awaitable, Callable, Dict
 from aiogram import BaseMiddleware
 from aiogram.types import TelegramObject, User
 
+from dict.lexicon_ru import user_db
 from config_reader import config
 
 class StartMiddleware(BaseMiddleware):
@@ -14,6 +15,7 @@ class StartMiddleware(BaseMiddleware):
         data: Dict[str, Any],
     ) -> Any:
         user: User = data.get("event_from_user")
+        user_db[user.id] = 1
         path = f"{config.path}{user.id}.txt"
         if os.path.isfile(path):
             pass

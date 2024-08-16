@@ -1,7 +1,7 @@
 import asyncio
 from aiogram import Bot, Dispatcher
 
-from handlers import default_handlers, default_handlers_callback, handlers_delete, handlers_start, handlers_append
+from handlers import default_handlers, default_handlers_callback, handlers_delete, handlers_open, handlers_start, handlers_append
 from middlewares.middlewares import StartMiddleware
 
 from config_reader import config 
@@ -11,6 +11,7 @@ async def main():
     dp = Dispatcher()
 
     dp.include_router(handlers_start.router)
+    dp.include_router(handlers_open.router)
     dp.include_router(handlers_append.router)
     dp.include_router(handlers_delete.router)
     dp.include_routers(default_handlers.router, default_handlers_callback.router)
